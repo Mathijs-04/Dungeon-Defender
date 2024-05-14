@@ -1,8 +1,10 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import { Spell } from './spell'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
-    Fish: new ImageSource('images/fish.png')
+    Wizard: new ImageSource('images/Wizard.png'),
+    Spell: new ImageSource('images/Spell.png'),
 }
 
 
