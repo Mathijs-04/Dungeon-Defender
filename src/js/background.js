@@ -13,7 +13,7 @@ export class Background extends Actor {
             this.anchor = Vector.Zero;
             this.graphics.use(this.sprite);
 
-            this.sprite.scale = new Vector(1.7, 1.7);
+            this.sprite.scale = new Vector(1, 1);
         });
     }
 }

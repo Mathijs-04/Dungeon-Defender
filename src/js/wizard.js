@@ -3,36 +3,36 @@ import { Resources } from "./resources";
 
 export class Wizard extends Actor {
     onInitialize(engine) {
-        // Assuming you have added these to your Resources
         const idleSheet = SpriteSheet.fromImageSource({
             image: Resources.Idle,
-            grid: { rows: 1, columns: 6, spriteWidth: 256, spriteHeight: 256 }
+            grid: { rows: 1, columns: 6, spriteWidth: 231, spriteHeight: 190 }
         });
-        
-        // Add these lines to create an idle animation
-        const idleFrames = range(0, 5); // Adjust range as needed
-        const idle = Animation.fromSpriteSheet(idleSheet, idleFrames, 80); // Adjust speed as needed
-        
+
+        const idleFrames = range(0, 7);
+        const idle = Animation.fromSpriteSheet(idleSheet, idleFrames, 100);
+
         const runSheet = SpriteSheet.fromImageSource({
             image: Resources.Run,
-            grid: { rows: 1, columns: 8, spriteWidth: 256, spriteHeight: 256 }
+            grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
         });
-        
-        const runLeft = Animation.fromSpriteSheet(runSheet, range(0, 7), 80);
+
+        const runLeft = Animation.fromSpriteSheet(runSheet, range(0, 7), 100);
         const runRight = runLeft.clone();
         runRight.flipHorizontal = true;
-        
+
+        idle.scale = new Vector(2, 2);
+        runLeft.scale = new Vector(2, 2);
+        runRight.scale = new Vector(2, 2);
+
         this.graphics.add("idle", idle);
         this.graphics.add("runleft", runLeft);
         this.graphics.add("runright", runRight);
-        
-        // Use the idle animation as the default sprite
+
         this.graphics.use("idle");
 
-        // Use the idle animation as the default sprite
         this.graphics.use("idle");
-        this.pos = new Vector(100, 100);
-        this.vel = new Vector(0,0);
+        this.pos = new Vector(960, 630);
+        this.vel = new Vector(0, 0);
     }
 
     onPostUpdate(engine) {
@@ -40,12 +40,12 @@ export class Wizard extends Actor {
         let sprite = this.graphics.current;
 
         if (engine.input.keyboard.isHeld(Keys.Left) || engine.input.keyboard.isHeld(Keys.A)) {
-            xspeed = -250;
-            this.graphics.use("runright"); // Use runright when moving left
+            xspeed = -400;
+            this.graphics.use("runright");
         }
         else if (engine.input.keyboard.isHeld(Keys.Right) || engine.input.keyboard.isHeld(Keys.D)) {
-            xspeed = 250;
-            this.graphics.use("runleft"); // Use runleft when moving right
+            xspeed = 400;
+            this.graphics.use("runleft");
         }
         else {
             this.graphics.use("idle");
