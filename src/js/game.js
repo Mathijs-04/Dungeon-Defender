@@ -2,6 +2,7 @@ import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode, BoundingBox } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Wizard } from './wizard.js'
+import { Health } from './health.js'
 import { Background } from './background.js'
 
 export class Game extends Engine {
@@ -22,7 +23,9 @@ export class Game extends Engine {
         const background = new Background();
         this.add(background);
         const wizard = new Wizard();
+        const heart = new Health(3);
         this.add(wizard);
+        this.add(heart);
     }
 }
 
