@@ -1,18 +1,15 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur'
-import { Spell } from './spell'
+import { ImageSource, Sound, Resource, Loader } from 'excalibur';
+import { Background } from './background';
 
-// voeg hier jouw eigen resources toe
 const Resources = {
-    Wizard: new ImageSource('images/Wizard.png'),
-    Spell: new ImageSource('images/Spell.png'),
-}
+    Background: new ImageSource('images/Background.jpg'),
+    Idle: new ImageSource('images/Idle.png'),
+    Run: new ImageSource('images/Run.png'),
+};
 
-
-
-
-const ResourceLoader = new Loader()
+const ResourceLoader = new Loader();
 for (let res of Object.values(Resources)) {
-    ResourceLoader.addResource(res)
+    ResourceLoader.addResource(res);
 }
 
-export { Resources, ResourceLoader }
+export { Resources, ResourceLoader };

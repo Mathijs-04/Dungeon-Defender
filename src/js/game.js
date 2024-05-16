@@ -2,7 +2,7 @@ import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Wizard } from './wizard.js'
-import { Spell } from './spell.js'
+import { Background } from './background.js'
 
 export class Game extends Engine {
 
@@ -19,11 +19,10 @@ export class Game extends Engine {
     }
 
     startGame() {
-        console.log("start de game!")
+        const background = new Background();
+        this.add(background);
         const wizard = new Wizard();
-        const spell = new Spell();
         this.add(wizard);
-        this.add(spell);
     }
 }
 
