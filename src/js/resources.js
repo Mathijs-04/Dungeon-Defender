@@ -2,7 +2,7 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur';
 import { Background } from './background';
 
 const Resources = {
-    Background: new ImageSource('images/Background.jpg'),
+    Background: new ImageSource('images/Background.png'),
     IdleWizard: new ImageSource('images/IdleWizard.png'),
     RunWizard: new ImageSource('images/RunWizard.png'),
     IdleSkeleton: new ImageSource('images/IdleSkeleton.png'),
@@ -10,6 +10,8 @@ const Resources = {
     IdleGoblin: new ImageSource('images/IdleGoblin.png'),
     RunGoblin: new ImageSource('images/RunGoblin.png'),
     RunBat: new ImageSource('images/RunBat.png'),
+    HeartFull: new ImageSource('images/HeartFull.png'),
+    HeartEmpty: new ImageSource('images/HeartEmpty.png'),
 };
 
 const ResourceLoader = new Loader();
