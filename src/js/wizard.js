@@ -1,4 +1,4 @@
-import { Actor, Keys, Vector, SpriteSheet, Animation, range } from "excalibur";
+import { Actor, Keys, Vector, SpriteSheet, Animation, range, clamp } from "excalibur";
 import { Resources } from "./resources";
 
 export class Wizard extends Actor {
@@ -31,7 +31,7 @@ export class Wizard extends Actor {
         this.graphics.use("idle");
 
         this.graphics.use("idle");
-        this.pos = new Vector(960, 630);
+        this.pos = new Vector(960, 660);
         this.vel = new Vector(0, 0);
     }
 
@@ -52,5 +52,8 @@ export class Wizard extends Actor {
         }
 
         this.vel = new Vector(xspeed, 0);
+        
+        this.pos.x = clamp(this.pos.x, 0, 1920);
+        this.pos.y = clamp(this.pos.y, 0, 1080);
     }
 }
