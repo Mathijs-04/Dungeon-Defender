@@ -3,8 +3,8 @@ import { Background } from './background';
 
 const Resources = {
     Background: new ImageSource('images/Background.jpg'),
-    Idle: new ImageSource('images/IdleWizard.png'),
-    Run: new ImageSource('images/RunWizard.png'),
+    IdleWizard: new ImageSource('images/IdleWizard.png'),
+    RunWizard: new ImageSource('images/RunWizard.png'),
 };
 
 const ResourceLoader = new Loader();

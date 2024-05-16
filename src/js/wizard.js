@@ -4,7 +4,7 @@ import { Resources } from "./resources";
 export class Wizard extends Actor {
     onInitialize(engine) {
         const idleSheet = SpriteSheet.fromImageSource({
-            image: Resources.Idle,
+            image: Resources.IdleWizard,
             grid: { rows: 1, columns: 6, spriteWidth: 231, spriteHeight: 190 }
         });
 
@@ -12,7 +12,7 @@ export class Wizard extends Actor {
         const idle = Animation.fromSpriteSheet(idleSheet, idleFrames, 100);
 
         const runSheet = SpriteSheet.fromImageSource({
-            image: Resources.Run,
+            image: Resources.RunWizard,
             grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
         });
 
