@@ -1,5 +1,6 @@
 import { Actor, Keys, Vector, SpriteSheet, Animation, range, clamp } from "excalibur";
 import { Resources } from "./resources";
+import { Spell } from "./spell";
 
 export class Wizard extends Actor {
     onInitialize(engine) {
@@ -33,6 +34,9 @@ export class Wizard extends Actor {
         this.graphics.use("idle");
         this.pos = new Vector(960, 660);
         this.vel = new Vector(0, 0);
+
+        this.on("pointerdown", (event) => this.attack());
+
     }
 
     onPostUpdate(engine) {
@@ -55,5 +59,10 @@ export class Wizard extends Actor {
         
         this.pos.x = clamp(this.pos.x, 0, 1920);
         this.pos.y = clamp(this.pos.y, 0, 1080);
+    }
+
+    attack() {
+        const spell = new Spell();
+        this.addChild(spell);
     }
 }
