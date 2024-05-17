@@ -7,6 +7,8 @@ export class Wizard extends Actor {
     lastDirection = "right";
     attackCooldown = 1000;
     lastAttackTime = 0;
+    isAttacking = false;
+    attackDuration = 600;
 
     onInitialize(engine) {
         const idleSheet = SpriteSheet.fromImageSource({
@@ -26,13 +28,23 @@ export class Wizard extends Actor {
         const runRight = runLeft.clone();
         runRight.flipHorizontal = true;
 
+        const attackSheet = SpriteSheet.fromImageSource({
+            image: Resources.AttackWizard,
+            grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
+        });
+
+        const attackFrames = range(0, 8);
+        const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 100);
+
         idle.scale = new Vector(2, 2);
         runLeft.scale = new Vector(2, 2);
         runRight.scale = new Vector(2, 2);
+        attack.scale = new Vector(2, 2);
 
         this.graphics.add("idle", idle);
         this.graphics.add("runleft", runLeft);
         this.graphics.add("runright", runRight);
+        this.graphics.add("attack", attack);
 
         this.graphics.use("idle");
 
@@ -47,22 +59,33 @@ export class Wizard extends Actor {
     }
 
     onPostUpdate(engine) {
+        if (this.isAttacking) {
+            return;
+        }
+
         let xspeed = 0;
 
         if (engine.input.keyboard.isHeld(Keys.Left) || engine.input.keyboard.isHeld(Keys.A)) {
             xspeed = -400;
             this.graphics.use("runright");
+            if (this.graphics.current) {
+                this.graphics.current.flipHorizontal = true;
+            }
             this.currentGraphicKey = "runright";
             this.lastDirection = "left";
-        }
-        else if (engine.input.keyboard.isHeld(Keys.Right) || engine.input.keyboard.isHeld(Keys.D)) {
+        } else if (engine.input.keyboard.isHeld(Keys.Right) || engine.input.keyboard.isHeld(Keys.D)) {
             xspeed = 400;
             this.graphics.use("runleft");
+            if (this.graphics.current) {
+                this.graphics.current.flipHorizontal = false;
+            }
             this.currentGraphicKey = "runleft";
             this.lastDirection = "right";
-        }
-        else {
+        } else {
             this.graphics.use("idle");
+            if (this.graphics.current) {
+                this.graphics.current.flipHorizontal = (this.lastDirection === "left");
+            }
             this.currentGraphicKey = "idle";
         }
 
@@ -75,6 +98,7 @@ export class Wizard extends Actor {
     attack() {
         const currentTime = Date.now();
         if (currentTime - this.lastAttackTime >= this.attackCooldown) {
+            this.isAttacking = true;
             let direction;
             if (this.currentGraphicKey === "idle") {
                 direction = this.lastDirection === "right" ? new Vector(1, 0) : new Vector(-1, 0);
@@ -85,7 +109,20 @@ export class Wizard extends Actor {
             }
             const spell = new Spell(direction);
             this.addChild(spell);
+            spell.pos = this.pos.clone();
             this.lastAttackTime = currentTime;
+            this.graphics.use("attack");
+            if (this.graphics.current) {
+                this.graphics.current.flipHorizontal = (this.lastDirection === "left");
+            }
+
+            setTimeout(() => {
+                this.graphics.use("idle");
+                if (this.graphics.current) {
+                    this.graphics.current.flipHorizontal = (this.lastDirection === "left");
+                }
+                this.isAttacking = false;
+            }, this.attackDuration);
         }
     }
 }

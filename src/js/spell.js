@@ -8,7 +8,7 @@ export class Spell extends Actor {
     }
 
     onInitialize(engine) {
-        this.pos = new Vector(25, 0);
+        this.pos = new Vector(25, -25);
 
         const spellSheet = SpriteSheet.fromImageSource({
             image: Resources.Spell,
