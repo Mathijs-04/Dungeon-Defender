@@ -1,5 +1,5 @@
 import { Actor } from "excalibur";
 
-export class Magic extends Actor {
+export class Spell extends Actor {
     
 }

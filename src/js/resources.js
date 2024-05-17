@@ -1,5 +1,4 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur';
-import { Background } from './background';
 
 const Resources = {
     Background: new ImageSource('images/Background.png'),
@@ -7,6 +6,9 @@ const Resources = {
     IdleWizard: new ImageSource('images/IdleWizard.png'),
     RunWizard: new ImageSource('images/RunWizard.png'),
     JumpWizard: new ImageSource('images/JumpWizard.png'),
+    AttackWizard: new ImageSource('images/AttackWizard.png'),
+
+    Spell: new ImageSource('images/Spell.png'),
 
     IdleSkeleton: new ImageSource('images/IdleSkeleton.png'),
     RunSkeleton: new ImageSource('images/RunSkeleton.png'),
