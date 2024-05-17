@@ -1,5 +1,6 @@
 TODO:
 
+
 Wizard:
 
 -Fix broken attack animation
@@ -8,9 +9,11 @@ Wizard:
 
 -Lose health on enemy attack
 
+
 Spell:
 
 -Make spell move indepently from wizard
+
 
 Enemies:
 
@@ -25,6 +28,7 @@ Enemies:
 -Add attack
 
 -Add Death
+
 
 Gameplay:
 
