@@ -5,6 +5,8 @@ import { Spell } from "./spell";
 export class Wizard extends Actor {
     currentGraphicKey = "idle";
     lastDirection = "right";
+    attackCooldown = 1000;
+    lastAttackTime = 0;
 
     onInitialize(engine) {
         const idleSheet = SpriteSheet.fromImageSource({
@@ -34,7 +36,6 @@ export class Wizard extends Actor {
 
         this.graphics.use("idle");
 
-        this.graphics.use("idle");
         this.pos = new Vector(960, 660);
         this.vel = new Vector(0, 0);
 
@@ -72,15 +73,19 @@ export class Wizard extends Actor {
     }
 
     attack() {
-        let direction;
-        if (this.currentGraphicKey === "idle") {
-            direction = this.lastDirection === "right" ? new Vector(1, 0) : new Vector(-1, 0);
-        } else if (this.currentGraphicKey === "runright") {
-            direction = new Vector(-1, 0);
-        } else {
-            direction = new Vector(1, 0);
+        const currentTime = Date.now();
+        if (currentTime - this.lastAttackTime >= this.attackCooldown) {
+            let direction;
+            if (this.currentGraphicKey === "idle") {
+                direction = this.lastDirection === "right" ? new Vector(1, 0) : new Vector(-1, 0);
+            } else if (this.currentGraphicKey === "runright") {
+                direction = new Vector(-1, 0);
+            } else {
+                direction = new Vector(1, 0);
+            }
+            const spell = new Spell(direction);
+            this.addChild(spell);
+            this.lastAttackTime = currentTime;
         }
-        const spell = new Spell(direction);
-        this.addChild(spell);
     }
 }
