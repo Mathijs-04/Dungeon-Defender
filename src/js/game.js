@@ -4,6 +4,7 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Wizard } from './wizard.js'
 import { Health } from './health.js'
 import { Background } from './background.js'
+import { Goblin, Skeleton } from './enemy.js'
 
 export class Game extends Engine {
 
@@ -22,10 +23,14 @@ export class Game extends Engine {
 
     startGame() {
         const background = new Background();
-        this.add(background);
         const wizard = new Wizard();
+        const skeleton = new Skeleton();
+        const goblin = new Goblin();
         const heart = new Health(3);
+        this.add(background);
         this.add(wizard);
+        this.add(skeleton);
+        this.add(goblin);
         this.add(heart);
     }
 }
