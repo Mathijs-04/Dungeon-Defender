@@ -3,7 +3,7 @@ import { Resources } from "./resources";
 import { Animation } from "excalibur";
 
 export class Enemy extends Actor {
-        //Working on it
+    //Working on it
 }
 
 export class Skeleton extends Enemy {

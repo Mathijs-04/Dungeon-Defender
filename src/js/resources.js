@@ -15,7 +15,7 @@ const Resources = {
     RunGoblin: new ImageSource('images/RunGoblin.png'),
 
     RunBat: new ImageSource('images/RunBat.png'),
-    
+
     HeartFull: new ImageSource('images/HeartFull.png'),
     HeartEmpty: new ImageSource('images/HeartEmpty.png'),
 };
