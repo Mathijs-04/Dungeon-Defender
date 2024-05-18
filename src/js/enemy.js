@@ -3,7 +3,7 @@ import { Resources } from "./resources";
 import { Animation } from "excalibur";
 
 export class Enemy extends Actor {
-    
+        //Working on it
 }
 
 export class Skeleton extends Enemy {
@@ -33,6 +33,7 @@ export class Goblin extends Enemy {
 
         const goblinRunFrames = Animation.fromSpriteSheet(goblinRunSheet, range(0, 3), 100);
         goblinRunFrames.scale = new Vector(3, 3);
+        goblinRunFrames.flipHorizontal = true;
         this.graphics.add("run", goblinRunFrames);
         this.graphics.use("run");
     }

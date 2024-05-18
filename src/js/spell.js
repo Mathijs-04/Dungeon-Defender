@@ -1,5 +1,6 @@
 import { Actor, Vector, SpriteSheet, Animation, range } from "excalibur";
 import { Resources } from './resources';
+import { Enemy } from "./enemy";
 
 export class Spell extends Actor {
     constructor(direction) {
@@ -19,5 +20,13 @@ export class Spell extends Actor {
 
         this.graphics.add("spell", spellAnimation);
         this.graphics.use("spell");
+
+        this.on('collisionstart', (event) => this.hitSomething(event))
+    }
+
+    hitSomething(event) {
+        if (event.other instanceof Enemy) {
+            event.other.kill()
+        }
     }
 }
