@@ -6,6 +6,10 @@ export class Enemy extends Actor {
     constructor() {
         super({width:120, height:120})
     }
+
+    die() {
+        console.log("Enemy died");
+    }
 }
 
 export class Skeleton extends Enemy {
@@ -14,6 +18,10 @@ export class Skeleton extends Enemy {
         this.vel = new Vector(50, 0);
         const skeletonRunSheet = SpriteSheet.fromImageSource({
             image: Resources.RunSkeleton,
+            grid: { rows: 1, columns: 4, spriteWidth: 150, spriteHeight: 150 }
+        });
+        const skeletonDeathSheet = SpriteSheet.fromImageSource({
+            image: Resources.DeathSkeleton,
             grid: { rows: 1, columns: 4, spriteWidth: 150, spriteHeight: 150 }
         });
 
@@ -31,6 +39,10 @@ export class Goblin extends Enemy {
         const goblinRunSheet = SpriteSheet.fromImageSource({
             image: Resources.RunGoblin,
             grid: { rows: 1, columns: 8, spriteWidth: 150, spriteHeight: 150 }
+        });
+        const goblinDeathSheet = SpriteSheet.fromImageSource({
+            image: Resources.DeathGoblin,
+            grid: { rows: 1, columns: 4, spriteWidth: 150, spriteHeight: 150 }
         });
 
         const goblinRunFrames = Animation.fromSpriteSheet(goblinRunSheet, range(0, 3), 100);

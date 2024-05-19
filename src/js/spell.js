@@ -26,8 +26,8 @@ export class Spell extends Actor {
 
     hitSomething(event) {
         if (event.other instanceof Enemy) {
-            event.other.kill()
-            this.kill()
+            event.other.die();
+            this.kill();
         }
     }
 }
