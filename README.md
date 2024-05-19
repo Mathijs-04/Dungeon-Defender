@@ -29,3 +29,5 @@ Gameplay:
 -Add game over screen
 
 -Add score
+
+-Add sound
