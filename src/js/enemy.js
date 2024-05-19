@@ -3,7 +3,9 @@ import { Resources } from "./resources";
 import { Animation } from "excalibur";
 
 export class Enemy extends Actor {
-    //Working on it
+    constructor() {
+        super({width:120, height:120})
+    }
 }
 
 export class Skeleton extends Enemy {
@@ -37,8 +39,4 @@ export class Goblin extends Enemy {
         this.graphics.add("run", goblinRunFrames);
         this.graphics.use("run");
     }
-}
-
-export class Bat extends Enemy {
-    //Working on it
 }

@@ -11,10 +11,10 @@ const Resources = {
     Spell: new ImageSource('images/Spell.png'),
 
     RunSkeleton: new ImageSource('images/RunSkeleton.png'),
+    DeathSkeleton: new ImageSource('images/DeathSkeleton.png'),
 
     RunGoblin: new ImageSource('images/RunGoblin.png'),
-
-    RunBat: new ImageSource('images/RunBat.png'),
+    DeathGoblin: new ImageSource('images/DeathGoblin.png'),
 
     HeartFull: new ImageSource('images/HeartFull.png'),
     HeartEmpty: new ImageSource('images/HeartEmpty.png'),

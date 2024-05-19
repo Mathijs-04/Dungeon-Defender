@@ -4,7 +4,7 @@ import { Enemy } from "./enemy";
 
 export class Spell extends Actor {
     constructor(direction) {
-        super();
+        super({width:80, height:80})
         this.vel = direction.scale(500);
     }
 
@@ -27,6 +27,7 @@ export class Spell extends Actor {
     hitSomething(event) {
         if (event.other instanceof Enemy) {
             event.other.kill()
+            this.kill()
         }
     }
 }

@@ -33,8 +33,8 @@ export class Wizard extends Actor {
             grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
         });
 
-        const attackFrames = range(0, 8);
-        const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 100);
+        const attackFrames = range(3, 5);
+        const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 150);
 
         idle.scale = new Vector(2, 2);
         runLeft.scale = new Vector(2, 2);
