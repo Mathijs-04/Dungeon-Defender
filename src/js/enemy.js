@@ -4,7 +4,7 @@ import { Animation } from "excalibur";
 
 export class Enemy extends Actor {
     constructor() {
-        super({width:120, height:120})
+        super({ width: 120, height: 120 })
     }
 
     die() {
@@ -14,7 +14,7 @@ export class Enemy extends Actor {
 
 export class Skeleton extends Enemy {
     onInitialize(engine) {
-        this.pos = new Vector(-69, 690); //Nice
+        this.pos = new Vector(-69, 690);
         this.vel = new Vector(50, 0);
         const skeletonRunSheet = SpriteSheet.fromImageSource({
             image: Resources.RunSkeleton,
