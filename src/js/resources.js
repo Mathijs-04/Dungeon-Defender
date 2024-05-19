@@ -18,6 +18,9 @@ const Resources = {
 
     HeartFull: new ImageSource('images/HeartFull.png'),
     HeartEmpty: new ImageSource('images/HeartEmpty.png'),
+
+    Music: new Sound('audio/Music.mp3'),
+    SpellSound: new Sound('audio/Spell.mp3'),
 };
 
 const ResourceLoader = new Loader();

@@ -1,4 +1,4 @@
-import { Actor, Keys, Vector, SpriteSheet, Animation, range, clamp } from "excalibur";
+import { Actor, Keys, Vector, SpriteSheet, Animation, range, clamp, Resource } from "excalibur";
 import { Resources } from "./resources";
 import { Spell } from "./spell";
 
@@ -115,6 +115,10 @@ export class Wizard extends Actor {
             if (this.graphics.current) {
                 this.graphics.current.flipHorizontal = (this.lastDirection === "left");
             }
+
+            Resources.SpellSound.volume = 1.0;
+            Resources.SpellSound.loop = false;
+            Resources.SpellSound.play();
 
             setTimeout(() => {
                 this.graphics.use("idle");

@@ -5,6 +5,7 @@ import { Wizard } from './wizard.js'
 import { Health } from './health.js'
 import { Background } from './background.js'
 import { Goblin, Skeleton } from './enemy.js'
+import { Score } from './score.js'
 
 export class Game extends Engine {
 
@@ -27,11 +28,17 @@ export class Game extends Engine {
         const skeleton = new Skeleton();
         const goblin = new Goblin();
         const heart = new Health(3);
+        const score = new Score();
         this.add(background);
         this.add(wizard);
         this.add(skeleton);
         this.add(goblin);
         this.add(heart);
+        this.add(score);
+
+        Resources.Music.volume = 0.5;
+        Resources.Music.loop = true;
+        Resources.Music.play();
     }
 }
 
