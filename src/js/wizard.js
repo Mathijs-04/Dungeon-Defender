@@ -16,7 +16,7 @@ export class Wizard extends Actor {
             grid: { rows: 1, columns: 6, spriteWidth: 231, spriteHeight: 190 }
         });
 
-        const idleFrames = range(0, 7);
+        const idleFrames = range(0, 5);
         const idle = Animation.fromSpriteSheet(idleSheet, idleFrames, 100);
 
         const runSheet = SpriteSheet.fromImageSource({
