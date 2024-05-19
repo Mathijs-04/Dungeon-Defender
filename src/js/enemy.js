@@ -7,6 +7,10 @@ export class Enemy extends Actor {
     }
 
     die() {
+        Resources.EnemyDeath.volume = 1.0;
+        Resources.EnemyDeath.loop = false;
+        Resources.EnemyDeath.play();
+        
         this.graphics.use("death");
         this.vel = Vector.Zero;
 

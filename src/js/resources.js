@@ -21,6 +21,7 @@ const Resources = {
 
     Music: new Sound('audio/Music.mp3'),
     SpellSound: new Sound('audio/Spell.mp3'),
+    EnemyDeath: new Sound('audio/EnemyDeath.mp3'),
 };
 
 const ResourceLoader = new Loader();
