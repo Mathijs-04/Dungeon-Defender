@@ -17,17 +17,9 @@ Spell:
 
 Enemies:
 
--Add enemy spritesheets (move, attack, death)
-
--Lose health on wizard attack
-
 -Add enemy spawn
 
--Add Move
-
 -Add attack
-
--Add Death
 
 
 Gameplay:
