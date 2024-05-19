@@ -4,7 +4,7 @@ import { Enemy } from "./enemy";
 
 export class Spell extends Actor {
     constructor(direction) {
-        super({width:80, height:80})
+        super({ width: 80, height: 80 })
         this.vel = direction.scale(500);
     }
 
