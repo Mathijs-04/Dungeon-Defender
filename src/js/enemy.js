@@ -28,6 +28,11 @@ export class Skeleton extends Enemy {
         const skeletonRunFrames = Animation.fromSpriteSheet(skeletonRunSheet, range(0, 3), 100);
         skeletonRunFrames.scale = new Vector(2.5, 2.5);
         this.graphics.add("run", skeletonRunFrames);
+        
+        const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 100);
+        skeletonDeathFrames.scale = new Vector(2.5, 2.5);
+        this.graphics.add("death", skeletonDeathFrames);
+        
         this.graphics.use("run");
     }
 }
@@ -49,6 +54,12 @@ export class Goblin extends Enemy {
         goblinRunFrames.scale = new Vector(3, 3);
         goblinRunFrames.flipHorizontal = true;
         this.graphics.add("run", goblinRunFrames);
+
+        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 100);
+        goblinDeathFrames.scale = new Vector(3, 3);
+        goblinDeathFrames.flipHorizontal = true;
+        this.graphics.add("death", goblinDeathFrames);
+
         this.graphics.use("run");
     }
 }
