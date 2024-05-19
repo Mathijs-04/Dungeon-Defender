@@ -17,7 +17,7 @@ Spell:
 
 Enemies:
 
--Add enemy spawn
+-Add enemy spawner
 
 -Add attack
 
@@ -29,3 +29,5 @@ Gameplay:
 -Add game over screen
 
 -Add score
+
+-Add sound
