@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, BoundingBox } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, BoundingBox, Timer } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Wizard } from './wizard.js'
 import { Health } from './health.js'
@@ -30,22 +30,34 @@ export class Game extends Engine {
     }
 
     startGame() {
+        this.timer = new Timer({
+            fcn: () => this.spawn(),
+            interval: 2500,
+            repeats: true
+        })
+        this.add(this.timer)
+        this.timer.start()
+
         const background = new Background();
         const wizard = new Wizard();
-        const skeleton = new Skeleton();
-        const goblin = new Goblin();
         const heart = new Health(3);
         this.ui = new UI();
+        
         this.add(background);
         this.add(wizard);
-        this.add(skeleton);
-        this.add(goblin);
         this.add(heart);
         this.add(this.ui);
 
         Resources.Music.volume = 0.5;
         Resources.Music.loop = true;
         Resources.Music.play();
+    }
+
+    spawn() {
+        const skeleton = new Skeleton();
+        const goblin = new Goblin();
+        this.add(skeleton);
+        this.add(goblin);
     }
 }
 
