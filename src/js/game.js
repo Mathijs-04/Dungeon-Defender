@@ -5,8 +5,16 @@ import { Wizard } from './wizard.js'
 import { Health } from './health.js'
 import { Background } from './background.js'
 import { Goblin, Skeleton } from './enemy.js'
+import { UI } from './ui.js';
 
 export class Game extends Engine {
+    score = 0;
+    ui;
+
+    addPoints(points) {
+        this.score += points;
+        this.ui.updateScore(this.score);
+    }
 
     constructor() {
         super({
@@ -27,11 +35,13 @@ export class Game extends Engine {
         const skeleton = new Skeleton();
         const goblin = new Goblin();
         const heart = new Health(3);
+        this.ui = new UI();
         this.add(background);
         this.add(wizard);
         this.add(skeleton);
         this.add(goblin);
         this.add(heart);
+        this.add(this.ui);
 
         Resources.Music.volume = 0.5;
         Resources.Music.loop = true;

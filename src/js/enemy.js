@@ -7,6 +7,8 @@ export class Enemy extends Actor {
     }
 
     die() {
+        this.scene?.engine.addPoints(100);
+
         Resources.EnemyDeath.volume = 1.0;
         Resources.EnemyDeath.loop = false;
         Resources.EnemyDeath.play();
