@@ -10,7 +10,7 @@ export class UI extends Actor {
     onInitialize(engine) {
         this.scoreLabel = new Label({
             text: "SCORE: 0",
-            pos: new Vector(engine.drawWidth / 2 - 110, 1000),
+            pos: new Vector(855, 1000),
             color: Color.White,
             font: new Font({
                 size: 50,
