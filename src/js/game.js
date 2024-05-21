@@ -32,7 +32,7 @@ export class Game extends Engine {
     startGame() {
         this.timer = new Timer({
             fcn: () => this.spawn(),
-            interval: 2500,
+            interval: 2000,
             repeats: true
         })
         this.add(this.timer)
@@ -54,10 +54,12 @@ export class Game extends Engine {
     }
 
     spawn() {
-        const skeleton = new Skeleton();
-        const goblin = new Goblin();
-        this.add(skeleton);
-        this.add(goblin);
+        if (Math.random() < 0.5) {
+            this.add(new Skeleton());
+        }
+        if (Math.random() < 0.5) {
+            this.add(new Goblin());
+        }
     }
 }
 
