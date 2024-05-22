@@ -7,6 +7,7 @@ const Resources = {
     RunWizard: new ImageSource('images/RunWizard.png'),
     JumpWizard: new ImageSource('images/JumpWizard.png'),
     AttackWizard: new ImageSource('images/AttackWizard.png'),
+    // DeathWizard: new ImageSource('images/DeathWizard.png'),
 
     Spell: new ImageSource('images/Spell.png'),
 
