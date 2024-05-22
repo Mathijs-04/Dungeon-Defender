@@ -148,6 +148,9 @@ export class Wizard extends Actor {
     }
 
     takeHit() {
+        Resources.WizardHit.volume = 0.5;
+        Resources.WizardHit.loop = false;
+        Resources.WizardHit.play();        
         this.actions.blink(100, 100, 5);
         this.health.decreaseHealth(1);
         if (this.health.currentHealth === 0) {
