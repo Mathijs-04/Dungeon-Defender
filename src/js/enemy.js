@@ -1,9 +1,24 @@
 import { Actor, SpriteSheet, Vector, range, Animation, AnimationStrategy } from "excalibur";
 import { Resources } from "./resources";
+import { Wizard } from './wizard';
 
 export class Enemy extends Actor {
-    constructor() {
+    wizard;
+
+    constructor(wizard) {
         super({ width: 120, height: 120 });
+        this.wizard = wizard;
+    }
+
+    onInitialize(engine) {
+        this.on('collisionstart', (event) => {
+            if (event.other instanceof Wizard) {
+                if (this.wizard) {
+                    this.wizard.takeHit(event);
+                    this.die();
+                }
+            }
+        });
     }
 
     die() {
@@ -13,7 +28,7 @@ export class Enemy extends Actor {
         Resources.EnemyDeath.volume = 1.0;
         Resources.EnemyDeath.loop = false;
         Resources.EnemyDeath.play();
-        
+
         this.graphics.use("death");
         this.vel = Vector.Zero;
 
@@ -27,7 +42,13 @@ export class Enemy extends Actor {
 }
 
 export class Skeleton extends Enemy {
+    constructor(wizard) {
+        super(wizard);
+    }
+
     onInitialize(engine) {
+        super.onInitialize(engine);
+
         this.pos = new Vector(-69, 690);
         this.vel = new Vector(50, 0);
 
@@ -53,7 +74,13 @@ export class Skeleton extends Enemy {
 }
 
 export class Goblin extends Enemy {
+    constructor(wizard) {
+        super(wizard);
+    }
+
     onInitialize(engine) {
+        super.onInitialize(engine);
+
         this.pos = new Vector(2000, 650);
         this.vel = new Vector(-75, 0);
 

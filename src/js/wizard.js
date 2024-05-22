@@ -1,14 +1,21 @@
-import { Actor, Keys, Vector, SpriteSheet, Animation, range, clamp, Resource } from "excalibur";
+import { Actor, Keys, Vector, SpriteSheet, Animation, range, clamp } from "excalibur";
 import { Resources } from "./resources";
 import { Spell } from "./spell";
+import { Health } from "./health";
 
 export class Wizard extends Actor {
+    health;
     currentGraphicKey = "idle";
     lastDirection = "right";
     attackCooldown = 1000;
     lastAttackTime = 0;
     isAttacking = false;
     attackDuration = 600;
+
+    constructor(health) {
+        super({ width: 120, height: 120 });
+        this.health = health;
+    }
 
     onInitialize(engine) {
         const idleSheet = SpriteSheet.fromImageSource({
@@ -128,5 +135,10 @@ export class Wizard extends Actor {
                 this.isAttacking = false;
             }, this.attackDuration);
         }
+    }
+
+    takeHit() {
+        this.actions.blink(100, 100, 5);
+        this.health.decreaseHealth(1);
     }
 }

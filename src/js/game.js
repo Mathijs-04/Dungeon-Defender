@@ -10,6 +10,7 @@ import { UI } from './ui.js';
 export class Game extends Engine {
     score = 0;
     ui;
+    wizard;
 
     addPoints(points) {
         this.score += points;
@@ -22,11 +23,11 @@ export class Game extends Engine {
             height: 1080,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen
-        })
+        });
 
         this.start(ResourceLoader).then(() => {
-            this.startGame()
-        })
+            this.startGame();
+        });
     }
 
     startGame() {
@@ -34,20 +35,20 @@ export class Game extends Engine {
             fcn: () => this.spawn(),
             interval: 2000,
             repeats: true
-        })
-        this.add(this.timer)
-        this.timer.start()
-
+        });
+        this.add(this.timer);
+        this.timer.start();
+    
         const background = new Background();
-        const wizard = new Wizard();
         const heart = new Health(3);
+        this.wizard = new Wizard(heart);
         this.ui = new UI();
         
         this.add(background);
-        this.add(wizard);
+        this.add(this.wizard);
         this.add(heart);
         this.add(this.ui);
-
+    
         Resources.Music.volume = 0.5;
         Resources.Music.loop = true;
         Resources.Music.play();
@@ -55,12 +56,12 @@ export class Game extends Engine {
 
     spawn() {
         if (Math.random() < 0.5) {
-            this.add(new Skeleton());
+            this.add(new Skeleton(this.wizard));
         }
         if (Math.random() < 0.5) {
-            this.add(new Goblin());
+            this.add(new Goblin(this.wizard));
         }
     }
 }
 
-new Game()
+new Game();
