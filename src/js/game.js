@@ -24,10 +24,19 @@ export class Game extends Engine {
             maxFps: 60,
             displayMode: DisplayMode.FitScreen
         });
-
+    
         this.start(ResourceLoader).then(() => {
             this.startGame();
         });
+    
+        this.elapsedTime = 0;
+        this.elapsedTimeTimer = new Timer({
+            fcn: () => this.elapsedTime++,
+            interval: 1000,
+            repeats: true
+        });
+        this.add(this.elapsedTimeTimer);
+        this.elapsedTimeTimer.start();
     }
 
     startGame() {
@@ -55,10 +64,16 @@ export class Game extends Engine {
     }
 
     spawn() {
-        if (Math.random() < 0.5) {
+        const elapsedTimeInSeconds = this.elapsedTime;
+    
+        const spawnProbability = Math.min(0.25 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
+
+        console.log(`Current spawn chance: ${spawnProbability}`);
+    
+        if (Math.random() < spawnProbability) {
             this.add(new Skeleton(this.wizard));
         }
-        if (Math.random() < 0.5) {
+        if (Math.random() < spawnProbability) {
             this.add(new Goblin(this.wizard));
         }
     }
