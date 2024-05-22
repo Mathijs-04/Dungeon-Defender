@@ -1,33 +1,11 @@
 TODO:
 
+-Increase Enemy Spawn Rate
 
-Wizard:
+-Add Start Screen
 
--Fix broken attack animation
+-Add Game Over Screen
 
--Add spritesheet (death)
-
--Lose health on enemy attack
-
-
-Spell:
-
--Make spell move indepently from wizard
+-Save Score to Local Storage
 
 
-Enemies:
-
--Add enemy spawner
-
--Add attack
-
-
-Gameplay:
-
--Add start screen
-
--Add game over screen
-
--Add score
-
--Add sound
