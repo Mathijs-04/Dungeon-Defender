@@ -1,6 +1,6 @@
 TODO:
 
--Add Start Screen
+-Randomize Enemy Spawn Types
 
 -Add Game Over Screen
 
