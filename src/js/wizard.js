@@ -43,25 +43,15 @@ export class Wizard extends Actor {
         const attackFrames = range(3, 5);
         const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 150);
 
-        // const deathSheet = SpriteSheet.fromImageSource({
-        //     image: Resources.DeathWizard,
-        //     grid: { rows: 1, columns: 7, spriteWidth: 231, spriteHeight: 190 }
-        // });
-
-        // const deathFrames = range(0, 6);
-        // const death = Animation.fromSpriteSheet(deathSheet, deathFrames, 100);
-
         idle.scale = new Vector(2, 2);
         runLeft.scale = new Vector(2, 2);
         runRight.scale = new Vector(2, 2);
         attack.scale = new Vector(2, 2);
-        // death.scale = new Vector(2, 2);
 
         this.graphics.add("idle", idle);
         this.graphics.add("runleft", runLeft);
         this.graphics.add("runright", runRight);
         this.graphics.add("attack", attack);
-        // this.graphics.add("death", death);
 
         this.graphics.use("idle");
 
@@ -150,7 +140,7 @@ export class Wizard extends Actor {
     takeHit() {
         Resources.WizardHit.volume = 0.5;
         Resources.WizardHit.loop = false;
-        Resources.WizardHit.play();        
+        Resources.WizardHit.play();
         this.actions.blink(100, 100, 5);
         this.health.decreaseHealth(1);
         if (this.health.currentHealth === 0) {

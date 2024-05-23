@@ -57,7 +57,7 @@ export class Game extends Engine {
                 }
             }
         });
-        
+
     }
 
     runGame() {
@@ -88,10 +88,7 @@ export class Game extends Engine {
 
     spawn() {
         const elapsedTimeInSeconds = this.elapsedTime;
-
         const spawnProbability = Math.min(0.25 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
-
-        console.log(`Current spawn chance: ${spawnProbability}`);
 
         if (Math.random() < spawnProbability) {
             this.add(new Skeleton(this.wizard));
