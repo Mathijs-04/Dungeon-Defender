@@ -1,16 +1,18 @@
-import '../css/style.css'
-import { Actor, Engine, Vector, DisplayMode, BoundingBox, Timer } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
-import { Wizard } from './wizard.js'
-import { Health } from './health.js'
-import { Background } from './background.js'
-import { Goblin, Skeleton } from './enemy.js'
+import '../css/style.css';
+import { Actor, Engine, Vector, DisplayMode, Timer, Keys } from "excalibur";
+import { Resources, ResourceLoader } from './resources.js';
+import { Wizard } from './wizard.js';
+import { Health } from './health.js';
+import { Background } from './background.js';
+import { Goblin, Skeleton } from './enemy.js';
 import { UI } from './ui.js';
+import { Start } from './start.js';
 
 export class Game extends Engine {
     score = 0;
     ui;
     wizard;
+    gameStarted = false;
 
     addPoints(points) {
         this.score += points;
@@ -24,11 +26,7 @@ export class Game extends Engine {
             maxFps: 60,
             displayMode: DisplayMode.FitScreen
         });
-    
-        this.start(ResourceLoader).then(() => {
-            this.startGame();
-        });
-    
+
         this.elapsedTime = 0;
         this.elapsedTimeTimer = new Timer({
             fcn: () => this.elapsedTime++,
@@ -37,9 +35,32 @@ export class Game extends Engine {
         });
         this.add(this.elapsedTimeTimer);
         this.elapsedTimeTimer.start();
+
+        this.start(ResourceLoader).then(() => {
+            this.startGame();
+        });
     }
 
     startGame() {
+        const start = new Start();
+        this.add(start);
+        Resources.Music.volume = 0.5;
+        Resources.Music.loop = true;
+        Resources.Music.play();
+
+        this.input.keyboard.on('down', (evt) => {
+            // @ts-ignore
+            if (evt.key === 'Space') {
+                if (!this.gameStarted) {
+                    this.runGame();
+                    this.gameStarted = true;
+                }
+            }
+        });
+        
+    }
+
+    runGame() {
         this.timer = new Timer({
             fcn: () => this.spawn(),
             interval: 2000,
@@ -47,29 +68,31 @@ export class Game extends Engine {
         });
         this.add(this.timer);
         this.timer.start();
-    
+
         const background = new Background();
         const heart = new Health(3);
         this.wizard = new Wizard(heart);
         this.ui = new UI();
-        
+
         this.add(background);
         this.add(this.wizard);
         this.add(heart);
         this.add(this.ui);
-    
-        Resources.Music.volume = 0.5;
-        Resources.Music.loop = true;
-        Resources.Music.play();
+
+        this.currentScene.actors.forEach(actor => {
+            if (actor instanceof Start) {
+                actor.kill();
+            }
+        });
     }
 
     spawn() {
         const elapsedTimeInSeconds = this.elapsedTime;
-    
+
         const spawnProbability = Math.min(0.25 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
 
         console.log(`Current spawn chance: ${spawnProbability}`);
-    
+
         if (Math.random() < spawnProbability) {
             this.add(new Skeleton(this.wizard));
         }
