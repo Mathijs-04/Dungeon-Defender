@@ -42,15 +42,18 @@ export class Enemy extends Actor {
 }
 
 export class Skeleton extends Enemy {
-    constructor(wizard) {
+    constructor(wizard, spawnLeft, velocityX) {
         super(wizard);
+        this.spawnLeft = spawnLeft;
+        this.velocityX = velocityX;
     }
 
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.pos = new Vector(-69, 690);
-        this.vel = new Vector(50, 0);
+        const spawnX = this.spawnLeft ? -69 : 2000;
+        this.pos = new Vector(spawnX, 690);
+        this.vel = new Vector(this.velocityX, 0);
 
         const skeletonRunSheet = SpriteSheet.fromImageSource({
             image: Resources.RunSkeleton,
@@ -63,6 +66,11 @@ export class Skeleton extends Enemy {
 
         const skeletonRunFrames = Animation.fromSpriteSheet(skeletonRunSheet, range(0, 3), 100);
         skeletonRunFrames.scale = new Vector(2.5, 2.5);
+
+        if (!this.spawnLeft) {
+            skeletonRunFrames.flipHorizontal = true;
+        }
+
         this.graphics.add("run", skeletonRunFrames);
 
         const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 100, AnimationStrategy.Freeze);
@@ -74,15 +82,21 @@ export class Skeleton extends Enemy {
 }
 
 export class Goblin extends Enemy {
-    constructor(wizard) {
+    constructor(wizard, spawnLeft, velocityX) {
         super(wizard);
+        this.spawnLeft = spawnLeft;
+        this.velocityX = velocityX;
     }
 
     onInitialize(engine) {
         super.onInitialize(engine);
 
-        this.pos = new Vector(2000, 650);
-        this.vel = new Vector(-75, 0);
+        const spawnX = this.spawnLeft ? -69 : 2000;
+        const spawnY = 650;
+        const adjustedSpawnY = spawnY + (this.spawnLeft ? 30 : 30);
+
+        this.pos = new Vector(spawnX, adjustedSpawnY);
+        this.vel = new Vector(this.velocityX, 0);
 
         const goblinRunSheet = SpriteSheet.fromImageSource({
             image: Resources.RunGoblin,
@@ -95,14 +109,19 @@ export class Goblin extends Enemy {
 
         const goblinRunFrames = Animation.fromSpriteSheet(goblinRunSheet, range(0, 7), 100);
         goblinRunFrames.scale = new Vector(3, 3);
-        goblinRunFrames.flipHorizontal = true;
+
+        if (!this.spawnLeft) {
+            goblinRunFrames.flipHorizontal = true;
+        }
+
         this.graphics.add("run", goblinRunFrames);
 
         const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 100, AnimationStrategy.Freeze);
         goblinDeathFrames.scale = new Vector(3, 3);
-        goblinDeathFrames.flipHorizontal = true;
         this.graphics.add("death", goblinDeathFrames);
 
         this.graphics.use("run");
     }
 }
+
+

@@ -104,17 +104,20 @@ export class Game extends Engine {
     spawn() {
         const elapsedTimeInSeconds = this.elapsedTime;
         const spawnProbability = Math.min(0.4 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
-
+    
         if (!this.spawnEnded) {
+            const spawnLeft = Math.random() < 0.5;
+    
             if (Math.random() < spawnProbability) {
-                this.add(new Skeleton(this.wizard));
+                const velocityX = spawnLeft ? 50 : -50;
+                this.add(new Skeleton(this.wizard, spawnLeft, velocityX));
             }
             if (Math.random() < spawnProbability) {
-                this.add(new Goblin(this.wizard));
+                const velocityX = spawnLeft ? 75 : -75;
+                this.add(new Goblin(this.wizard, spawnLeft, velocityX));
             }
         }
     }
-
     stopAll() {
         this.spawnEnded = true;
         Resources.Music.stop();
