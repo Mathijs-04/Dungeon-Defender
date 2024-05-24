@@ -12,9 +12,10 @@ export class Wizard extends Actor {
     isAttacking = false;
     attackDuration = 600;
 
-    constructor(health) {
+    constructor(health, game) {
         super({ width: 120, height: 120 });
         this.health = health;
+        this.game = game;
     }
 
     onInitialize(engine) {
@@ -150,5 +151,6 @@ export class Wizard extends Actor {
 
     die() {
         this.kill();
+        this.game.end();
     }
 }

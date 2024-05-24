@@ -1,5 +1,5 @@
 import '../css/style.css';
-import { Actor, Engine, Vector, DisplayMode, Timer, Keys } from "excalibur";
+import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Wizard } from './wizard.js';
 import { Health } from './health.js';
@@ -7,12 +7,14 @@ import { Background } from './background.js';
 import { Goblin, Skeleton } from './enemy.js';
 import { UI } from './ui.js';
 import { Start } from './start.js';
+import { End } from './end.js';
 
 export class Game extends Engine {
     score = 0;
     ui;
     wizard;
     gameStarted = false;
+    gameEnded = false;
 
     addPoints(points) {
         this.score += points;
@@ -71,7 +73,7 @@ export class Game extends Engine {
 
         const background = new Background();
         const heart = new Health(3);
-        this.wizard = new Wizard(heart);
+        this.wizard = new Wizard(heart, this);
         this.ui = new UI();
 
         this.add(background);
@@ -96,6 +98,35 @@ export class Game extends Engine {
         if (Math.random() < spawnProbability) {
             this.add(new Goblin(this.wizard));
         }
+    }
+
+    end() {
+        this.gameEnded = true;
+        const end = new End();
+        this.add(end);
+        this.currentScene.actors.forEach(actor => actor.kill());
+        Resources.Music.stop();
+        this.input.keyboard.on('down', (evt) => {
+            // @ts-ignore
+            if (evt.key === 'Space') {
+                this.restart();
+            }
+        });
+    }
+
+    restart() {
+        this.score = 0;
+        this.ui.updateScore(this.score);
+        this.elapsedTime = 0;
+        this.gameEnded = false;
+        
+        this.currentScene.actors.forEach(actor => {
+            if (actor instanceof End) {
+                actor.kill();
+            }
+        });
+
+        this.startGame();
     }
 }
 
