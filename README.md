@@ -2,6 +2,6 @@ TODO:
 
 -Randomize Enemy Spawn Types
 
--Save Score to Local Storage
+-Fix Minor Bugs (Spell Sound on Restart, Spell movement influenced by Wizard)
 
 
