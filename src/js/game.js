@@ -1,5 +1,5 @@
 import '../css/style.css';
-import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound } from "excalibur";
+import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Wizard } from './wizard.js';
 import { Health } from './health.js';
@@ -127,6 +127,11 @@ export class Game extends Engine {
 
     end() {
         this.gameEnded = true;
+
+        Resources.GameOver.volume = 1.0;
+        Resources.GameOver.loop = false;
+        Resources.GameOver.play();
+
         const finalScore = this.score;
         const end = new End(finalScore);
         this.add(end);

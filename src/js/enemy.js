@@ -107,7 +107,7 @@ export class Goblin extends Enemy {
             grid: { rows: 1, columns: 4, spriteWidth: 150, spriteHeight: 150 }
         });
 
-        const goblinRunFrames = Animation.fromSpriteSheet(goblinRunSheet, range(0, 7), 100);
+        const goblinRunFrames = Animation.fromSpriteSheet(goblinRunSheet, range(0, 7), 150);
         goblinRunFrames.scale = new Vector(3, 3);
 
         if (!this.spawnLeft) {

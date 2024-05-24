@@ -25,6 +25,7 @@ const Resources = {
     SpellSound: new Sound('audio/Spell.mp3'),
     WizardHit: new Sound('audio/WizardHit.mp3'),
     EnemyDeath: new Sound('audio/EnemyDeath.mp3'),
+    GameOver: new Sound('audio/GameOver.mp3'),
 };
 
 const ResourceLoader = new Loader();
