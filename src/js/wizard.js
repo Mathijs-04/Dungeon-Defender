@@ -151,6 +151,6 @@ export class Wizard extends Actor {
 
     die() {
         this.kill();
-        this.game.end();
+        this.game.stopAll();
     }
 }

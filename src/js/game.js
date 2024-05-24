@@ -15,6 +15,7 @@ export class Game extends Engine {
     wizard;
     gameStarted = false;
     gameEnded = false;
+    spawnEnded = false;
 
     addPoints(points) {
         this.score += points;
@@ -92,20 +93,30 @@ export class Game extends Engine {
         const elapsedTimeInSeconds = this.elapsedTime;
         const spawnProbability = Math.min(0.25 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
 
-        if (Math.random() < spawnProbability) {
-            this.add(new Skeleton(this.wizard));
+        if (!this.spawnEnded) {
+            if (Math.random() < spawnProbability) {
+                this.add(new Skeleton(this.wizard));
+            }
+            if (Math.random() < spawnProbability) {
+                this.add(new Goblin(this.wizard));
+            }
         }
-        if (Math.random() < spawnProbability) {
-            this.add(new Goblin(this.wizard));
+    }
+
+    stopAll() {
+        this.spawnEnded = true;
+        Resources.Music.stop();
+        this.currentScene.actors.forEach(actor => actor.kill());
+        if (this.elapsedTimeTimer) {
+            this.elapsedTimeTimer.cancel();
         }
+        this.end();
     }
 
     end() {
         this.gameEnded = true;
         const end = new End();
         this.add(end);
-        this.currentScene.actors.forEach(actor => actor.kill());
-        Resources.Music.stop();
         this.input.keyboard.on('down', (evt) => {
             // @ts-ignore
             if (evt.key === 'Space') {
