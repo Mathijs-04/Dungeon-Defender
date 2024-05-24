@@ -1,4 +1,4 @@
-#Dungeon Defender is made in Excalibur.js
+Dungeon Defender is made in Excalibur.js
 
 
 Controls: 
