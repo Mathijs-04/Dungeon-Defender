@@ -103,8 +103,7 @@ export class Game extends Engine {
 
     spawn() {
         const elapsedTimeInSeconds = this.elapsedTime;
-        const spawnProbability = Math.min(0.25 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
-        console.log(`Spawn probability: ${spawnProbability}`);
+        const spawnProbability = Math.min(0.4 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
 
         if (!this.spawnEnded) {
             if (Math.random() < spawnProbability) {
@@ -125,7 +124,8 @@ export class Game extends Engine {
 
     end() {
         this.gameEnded = true;
-        const end = new End();
+        const finalScore = this.score;
+        const end = new End(finalScore);
         this.add(end);
 
         if (this.spaceKeyListener) {
