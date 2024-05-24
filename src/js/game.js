@@ -16,6 +16,7 @@ export class Game extends Engine {
     gameStarted = false;
     gameEnded = false;
     spawnEnded = false;
+    spaceKeyListener;
 
     addPoints(points) {
         this.score += points;
@@ -45,22 +46,30 @@ export class Game extends Engine {
     }
 
     startGame() {
+        this.gameEnded = false;
+        this.gameStarted = false;
+        this.spawnEnded = true;
+
         const start = new Start();
         this.add(start);
         Resources.Music.volume = 0.5;
         Resources.Music.loop = true;
         Resources.Music.play();
 
-        this.input.keyboard.on('down', (evt) => {
-            // @ts-ignore
-            if (evt.key === 'Space') {
+        if (this.spaceKeyListener) {
+            this.input.keyboard.off('down', this.spaceKeyListener);
+        }
+
+        this.spaceKeyListener = (evt) => {
+            if (evt.key === Keys.Space) {
                 if (!this.gameStarted) {
                     this.runGame();
                     this.gameStarted = true;
                 }
             }
-        });
+        };
 
+        this.input.keyboard.on('down', this.spaceKeyListener);
     }
 
     runGame() {
@@ -87,11 +96,15 @@ export class Game extends Engine {
                 actor.kill();
             }
         });
+
+        this.spawnEnded = false;
+        this.elapsedTime = 0;
     }
 
     spawn() {
         const elapsedTimeInSeconds = this.elapsedTime;
         const spawnProbability = Math.min(0.25 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
+        console.log(`Spawn probability: ${spawnProbability}`);
 
         if (!this.spawnEnded) {
             if (Math.random() < spawnProbability) {
@@ -107,9 +120,6 @@ export class Game extends Engine {
         this.spawnEnded = true;
         Resources.Music.stop();
         this.currentScene.actors.forEach(actor => actor.kill());
-        if (this.elapsedTimeTimer) {
-            this.elapsedTimeTimer.cancel();
-        }
         this.end();
     }
 
@@ -117,25 +127,29 @@ export class Game extends Engine {
         this.gameEnded = true;
         const end = new End();
         this.add(end);
-        this.input.keyboard.on('down', (evt) => {
-            // @ts-ignore
-            if (evt.key === 'Space') {
+
+        if (this.spaceKeyListener) {
+            this.input.keyboard.off('down', this.spaceKeyListener);
+        }
+
+        this.spaceKeyListener = (evt) => {
+            if (evt.key === Keys.Space) {
                 this.restart();
             }
-        });
+        };
+
+        this.input.keyboard.on('down', this.spaceKeyListener);
     }
 
     restart() {
-        this.score = 0;
-        this.ui.updateScore(this.score);
-        this.elapsedTime = 0;
-        this.gameEnded = false;
-        
         this.currentScene.actors.forEach(actor => {
             if (actor instanceof End) {
                 actor.kill();
             }
         });
+
+        this.score = 0;
+        this.elapsedTime = 0;
 
         this.startGame();
     }
