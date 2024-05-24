@@ -3,6 +3,7 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur';
 const Resources = {
     Background: new ImageSource('images/Background.png'),
     StartImage: new ImageSource('images/Start.png'),
+    EndImage: new ImageSource('images/End.png'),
 
     IdleWizard: new ImageSource('images/IdleWizard.png'),
     RunWizard: new ImageSource('images/RunWizard.png'),
