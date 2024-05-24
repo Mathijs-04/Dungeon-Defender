@@ -1,7 +1,9 @@
-TODO:
+Dungeon Defender is made in Excalibur.js
 
--Randomize Enemy Spawn Types
+Controls: 
 
--Fix Minor Bugs (Spell Sound on Restart, Spell movement influenced by Wizard)
+Move: A, D, LEFT, RIGHT
+
+Attack: SPACE
 
 
