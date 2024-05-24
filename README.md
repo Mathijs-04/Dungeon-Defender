@@ -1,9 +1,10 @@
 #Dungeon Defender is made in Excalibur.js
 
-##Controls: 
 
-###Move: A, D, LEFT, RIGHT
+Controls: 
 
-###Attack: SPACE
+Move: A, D, LEFT, RIGHT
+
+Attack: SPACE
 
 
