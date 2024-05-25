@@ -32,17 +32,20 @@ export class Game extends Engine {
         });
 
         this.elapsedTime = 0;
+        this.createElapsedTimeTimer();
+
+        this.start(ResourceLoader).then(() => {
+            this.startGame();
+        });
+    }
+
+    createElapsedTimeTimer() {
         this.elapsedTimeTimer = new Timer({
             fcn: () => this.elapsedTime++,
             interval: 1000,
             repeats: true
         });
         this.add(this.elapsedTimeTimer);
-        this.elapsedTimeTimer.start();
-
-        this.start(ResourceLoader).then(() => {
-            this.startGame();
-        });
     }
 
     startGame() {
@@ -99,15 +102,17 @@ export class Game extends Engine {
 
         this.spawnEnded = false;
         this.elapsedTime = 0;
+        // @ts-ignore
+        this.elapsedTimeTimer.start();
     }
 
     spawn() {
         const elapsedTimeInSeconds = this.elapsedTime;
         const spawnProbability = Math.min(0.4 + elapsedTimeInSeconds * (0.75 / 100), 1.0);
-    
+
         if (!this.spawnEnded) {
             const spawnLeft = Math.random() < 0.5;
-    
+
             if (Math.random() < spawnProbability) {
                 const velocityX = spawnLeft ? 50 : -50;
                 this.add(new Skeleton(this.wizard, spawnLeft, velocityX));
@@ -118,10 +123,13 @@ export class Game extends Engine {
             }
         }
     }
+
     stopAll() {
         this.spawnEnded = true;
         Resources.Music.stop();
         this.currentScene.actors.forEach(actor => actor.kill());
+        // @ts-ignore
+        this.elapsedTimeTimer.stop();
         this.end();
     }
 
@@ -158,6 +166,8 @@ export class Game extends Engine {
 
         this.score = 0;
         this.elapsedTime = 0;
+        // @ts-ignore
+        this.elapsedTimeTimer.reset();
 
         this.startGame();
     }
