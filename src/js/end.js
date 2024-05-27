@@ -42,7 +42,7 @@ export class End extends Actor {
 
         if (finalScore > highScore) {
             localStorage.setItem('highScore', JSON.stringify(finalScore));
-            this.highScoreLabel.text = "High Score: " + finalScore;
+            this.highScoreLabel.text = finalScore;
         }
     }
 
