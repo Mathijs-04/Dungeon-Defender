@@ -32,6 +32,8 @@ export class Enemy extends Actor {
         this.graphics.use("death");
         this.vel = Vector.Zero;
 
+        this.acc = new Vector(0, 600);
+
         const deathAnimation = this.graphics.current;
         if (deathAnimation instanceof Animation) {
             deathAnimation.events.on("end", () => {
@@ -73,7 +75,7 @@ export class Skeleton extends Enemy {
 
         this.graphics.add("run", skeletonRunFrames);
 
-        const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 100, AnimationStrategy.Freeze);
+        const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
         skeletonDeathFrames.scale = new Vector(2.5, 2.5);
         this.graphics.add("death", skeletonDeathFrames);
 
@@ -116,7 +118,7 @@ export class Goblin extends Enemy {
 
         this.graphics.add("run", goblinRunFrames);
 
-        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 100, AnimationStrategy.Freeze);
+        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
         goblinDeathFrames.scale = new Vector(3, 3);
         this.graphics.add("death", goblinDeathFrames);
 
