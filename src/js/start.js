@@ -12,7 +12,7 @@ export class Start extends Actor {
             });
             this.anchor = Vector.Zero;
             this.graphics.use(this.sprite);
-            
+
             this.sprite.scale = new Vector(1, 1);
         });
     }
