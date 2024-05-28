@@ -32,8 +32,6 @@ export class Enemy extends Actor {
         this.graphics.use("death");
         this.vel = Vector.Zero;
 
-        this.acc = new Vector(0, 600);
-
         const deathAnimation = this.graphics.current;
         if (deathAnimation instanceof Animation) {
             deathAnimation.events.on("end", () => {
