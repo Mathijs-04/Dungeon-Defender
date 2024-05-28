@@ -116,7 +116,7 @@ export class Goblin extends Enemy {
 
         this.graphics.add("run", goblinRunFrames);
 
-        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
+        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 10, AnimationStrategy.Freeze);
         goblinDeathFrames.scale = new Vector(3, 3);
         this.graphics.add("death", goblinDeathFrames);
 

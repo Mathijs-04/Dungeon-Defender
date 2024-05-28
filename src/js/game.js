@@ -1,5 +1,5 @@
 import '../css/style.css';
-import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource } from "excalibur";
+import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
 import { Wizard } from './wizard.js';
 import { Health } from './health.js';
@@ -29,7 +29,7 @@ export class Game extends Engine {
             width: 1920,
             height: 1080,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen
+            displayMode: DisplayMode.FitScreen,
         });
 
         this.elapsedTime = 0;
