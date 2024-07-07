@@ -116,26 +116,25 @@ export class Wizard extends Actor {
             } else {
                 direction = new Vector(1, 0);
             }
-            const spell = new Spell(direction);
-            this.addChild(spell);
-            spell.pos = this.pos.clone();
+            const spell = new Spell(direction, this.pos.clone());
+            this.game.add(spell);
             this.lastAttackTime = currentTime;
             this.graphics.use("attack");
             if (this.graphics.current) {
                 this.graphics.current.flipHorizontal = (this.lastDirection === "left");
             }
-
+    
             Resources.SpellSound.volume = 1.0;
             Resources.SpellSound.loop = false;
             Resources.SpellSound.play();
-
+    
             setTimeout(() => {
                 this.graphics.use("idle");
                 if (this.graphics.current) {
                     this.graphics.current.flipHorizontal = (this.lastDirection === "left");
                 }
                 this.isAttacking = false;
-            }, this.attackDuration);
+            }, 500);
         }
     }
 

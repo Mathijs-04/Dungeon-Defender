@@ -3,14 +3,13 @@ import { Resources } from './resources';
 import { Enemy } from "./enemy";
 
 export class Spell extends Actor {
-    constructor(direction) {
+    constructor(direction, wizardPosition) {
         super({ width: 80, height: 80 })
         this.vel = direction.scale(500);
+        this.pos = wizardPosition;
     }
 
     onInitialize(engine) {
-        this.pos = new Vector(25, -25);
-
         const spellSheet = SpriteSheet.fromImageSource({
             image: Resources.Spell,
             grid: { rows: 1, columns: 7, spriteWidth: 124, spriteHeight: 108 }
