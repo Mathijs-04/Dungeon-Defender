@@ -1,7 +1,9 @@
 // Update plan:
-// Fix bug: Spell movement influence
+// Fix bug: Spell movement influence DONE
 // Fix bug: Unflipped death animations DONE
 // Fix bug: Player moving during attack DONE
+// Fix bug: Incorrect attack animation DONE
+// Fix bug: Incorrect Spell behaviour on restart
 // Custom Score Font
 // Add gamepad support
 

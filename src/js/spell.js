@@ -4,9 +4,11 @@ import { Enemy } from "./enemy";
 
 export class Spell extends Actor {
     constructor(direction, wizardPosition) {
-        super({ width: 80, height: 80 })
+        super({ width: 80, height: 80 });
+        
+        this.pos.y = 640;
+        this.pos.x = wizardPosition.x + (direction.x > 0 ? 50 : -50);
         this.vel = direction.scale(500);
-        this.pos = wizardPosition;
     }
 
     onInitialize(engine) {
@@ -20,7 +22,7 @@ export class Spell extends Actor {
         this.graphics.add("spell", spellAnimation);
         this.graphics.use("spell");
 
-        this.on('collisionstart', (event) => this.hitSomething(event))
+        this.on('collisionstart', (event) => this.hitSomething(event));
     }
 
     hitSomething(event) {

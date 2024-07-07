@@ -36,27 +36,17 @@ export class Wizard extends Actor {
         const runRight = runLeft.clone();
         runRight.flipHorizontal = true;
 
-        const attackSheet = SpriteSheet.fromImageSource({
-            image: Resources.AttackWizard,
-            grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
-        });
-
-        const attackFrames = range(3, 5);
-        const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 150);
-
         idle.scale = new Vector(2, 2);
         runLeft.scale = new Vector(2, 2);
         runRight.scale = new Vector(2, 2);
-        attack.scale = new Vector(2, 2);
 
         this.graphics.add("idle", idle);
         this.graphics.add("runleft", runLeft);
         this.graphics.add("runright", runRight);
-        this.graphics.add("attack", attack);
 
         this.graphics.use("idle");
 
-        this.pos = new Vector(960, 660);
+        this.pos = new Vector(960, 680);
         this.vel = new Vector(0, 0);
 
         engine.input.keyboard.on('down', (evt) => {
@@ -76,25 +66,20 @@ export class Wizard extends Actor {
         if (engine.input.keyboard.isHeld(Keys.Left) || engine.input.keyboard.isHeld(Keys.A)) {
             xspeed = -400;
             this.graphics.use("runright");
-            if (this.graphics.current) {
-                this.graphics.current.flipHorizontal = true;
-            }
             this.currentGraphicKey = "runright";
             this.lastDirection = "left";
         } else if (engine.input.keyboard.isHeld(Keys.Right) || engine.input.keyboard.isHeld(Keys.D)) {
             xspeed = 400;
             this.graphics.use("runleft");
-            if (this.graphics.current) {
-                this.graphics.current.flipHorizontal = false;
-            }
             this.currentGraphicKey = "runleft";
             this.lastDirection = "right";
         } else {
             this.graphics.use("idle");
-            if (this.graphics.current) {
-                this.graphics.current.flipHorizontal = (this.lastDirection === "left");
-            }
             this.currentGraphicKey = "idle";
+        }
+
+        if (this.graphics.current) {
+            this.graphics.current.flipHorizontal = (this.lastDirection === "left");
         }
 
         this.vel = new Vector(xspeed, 0);
@@ -104,38 +89,50 @@ export class Wizard extends Actor {
     }
 
     attack() {
+        this.vel = new Vector(0, 0);
+
         const currentTime = Date.now();
-        if (currentTime - this.lastAttackTime >= this.attackCooldown) {
-            this.isAttacking = true;
-            this.vel = new Vector(0, 0);
-            let direction;
-            if (this.currentGraphicKey === "idle") {
-                direction = this.lastDirection === "right" ? new Vector(1, 0) : new Vector(-1, 0);
-            } else if (this.currentGraphicKey === "runright") {
-                direction = new Vector(-1, 0);
-            } else {
-                direction = new Vector(1, 0);
-            }
-            const spell = new Spell(direction, this.pos.clone());
-            this.game.add(spell);
-            this.lastAttackTime = currentTime;
-            this.graphics.use("attack");
-            if (this.graphics.current) {
-                this.graphics.current.flipHorizontal = (this.lastDirection === "left");
-            }
-    
-            Resources.SpellSound.volume = 1.0;
-            Resources.SpellSound.loop = false;
-            Resources.SpellSound.play();
-    
-            setTimeout(() => {
-                this.graphics.use("idle");
-                if (this.graphics.current) {
-                    this.graphics.current.flipHorizontal = (this.lastDirection === "left");
-                }
-                this.isAttacking = false;
-            }, 500);
+        if (currentTime - this.lastAttackTime < this.attackCooldown || this.isAttacking) {
+            return;
         }
+
+        this.isAttacking = true;
+        this.lastAttackTime = currentTime;
+
+        this.graphics.remove("attack");
+
+        const attackSheet = SpriteSheet.fromImageSource({
+            image: Resources.AttackWizard,
+            grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
+        });
+
+        const attackFrames = range(0, 7);
+        const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 80);
+        attack.scale = new Vector(2, 2);
+
+        this.graphics.add("attack", attack);
+        this.graphics.use("attack");
+
+        if (this.graphics.current) {
+            this.graphics.current.flipHorizontal = (this.lastDirection === "left");
+        }
+
+        Resources.SpellSound.volume = 1.0;
+        Resources.SpellSound.loop = false;
+        Resources.SpellSound.play();
+
+        const xOffset = this.lastDirection === "right" ? 100 : -100;
+        setTimeout(() => {
+            const spellSpawnPosition = this.pos.clone().add(new Vector(xOffset, 0));
+            const spell = new Spell(new Vector(this.lastDirection === "right" ? 1 : -1, 0), spellSpawnPosition);
+            this.game.add(spell);
+        }, 400);
+
+        setTimeout(() => {
+            this.graphics.remove("attack");
+            this.isAttacking = false;
+            this.graphics.use("idle");
+        }, this.attackDuration);
     }
 
     takeHit() {
