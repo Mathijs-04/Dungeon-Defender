@@ -4,8 +4,8 @@
 // Fix bug: Player moving during attack DONE
 // Fix bug: Incorrect attack animation DONE
 // Fix bug: Incorrect Spell behaviour on restart
+// Add delay after screen switch
 // Custom Score Font
-// Add gamepad support
 
 import '../css/style.css';
 import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";
