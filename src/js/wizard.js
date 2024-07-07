@@ -107,6 +107,7 @@ export class Wizard extends Actor {
         const currentTime = Date.now();
         if (currentTime - this.lastAttackTime >= this.attackCooldown) {
             this.isAttacking = true;
+            this.vel = new Vector(0, 0);
             let direction;
             if (this.currentGraphicKey === "idle") {
                 direction = this.lastDirection === "right" ? new Vector(1, 0) : new Vector(-1, 0);
