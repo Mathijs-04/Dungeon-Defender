@@ -1,3 +1,9 @@
+// Update plan:
+// Fix bug: Spell movement influence
+// Fix bug: Unflipped death animations
+// Fix bug: Player moving during attack
+// Add gamepad support
+
 import '../css/style.css';
 import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";
 import { Resources, ResourceLoader } from './resources.js';
