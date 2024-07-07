@@ -1,7 +1,8 @@
 // Update plan:
 // Fix bug: Spell movement influence
-// Fix bug: Unflipped death animations
-// Fix bug: Player moving during attack
+// Fix bug: Unflipped death animations DONE
+// Fix bug: Player moving during attack DONE
+// Custom Score Font
 // Add gamepad support
 
 import '../css/style.css';

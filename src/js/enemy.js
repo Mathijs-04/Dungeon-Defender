@@ -66,15 +66,16 @@ export class Skeleton extends Enemy {
 
         const skeletonRunFrames = Animation.fromSpriteSheet(skeletonRunSheet, range(0, 3), 100);
         skeletonRunFrames.scale = new Vector(2.5, 2.5);
+        
+        const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
+        skeletonDeathFrames.scale = new Vector(2.5, 2.5);
 
         if (!this.spawnLeft) {
             skeletonRunFrames.flipHorizontal = true;
+            skeletonDeathFrames.flipHorizontal = true;
         }
 
         this.graphics.add("run", skeletonRunFrames);
-
-        const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
-        skeletonDeathFrames.scale = new Vector(2.5, 2.5);
         this.graphics.add("death", skeletonDeathFrames);
 
         this.graphics.use("run");
@@ -110,14 +111,15 @@ export class Goblin extends Enemy {
         const goblinRunFrames = Animation.fromSpriteSheet(goblinRunSheet, range(0, 7), 150);
         goblinRunFrames.scale = new Vector(3, 3);
 
+        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
+        goblinDeathFrames.scale = new Vector(3, 3);
+
         if (!this.spawnLeft) {
             goblinRunFrames.flipHorizontal = true;
+            goblinDeathFrames.flipHorizontal = true;
         }
 
         this.graphics.add("run", goblinRunFrames);
-
-        const goblinDeathFrames = Animation.fromSpriteSheet(goblinDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
-        goblinDeathFrames.scale = new Vector(3, 3);
         this.graphics.add("death", goblinDeathFrames);
 
         this.graphics.use("run");
