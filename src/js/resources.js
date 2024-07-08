@@ -1,4 +1,4 @@
-import { ImageSource, Sound, Resource, Loader } from 'excalibur';
+import { ImageSource, Sound, Resource, Loader, FontSource } from 'excalibur';
 
 const Resources = {
     Background: new ImageSource('images/Background.png'),
@@ -25,6 +25,8 @@ const Resources = {
     WizardHit: new Sound('audio/WizardHit.mp3'),
     EnemyDeath: new Sound('audio/EnemyDeath.mp3'),
     GameOver: new Sound('audio/GameOver.mp3'),
+
+    // Font: new FontSource('Fantasy-Font', 'font/Fantasy-font.woff'),
 };
 
 const ResourceLoader = new Loader();
