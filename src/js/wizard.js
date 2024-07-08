@@ -11,6 +11,7 @@ export class Wizard extends Actor {
     lastAttackTime = 0;
     isAttacking = false;
     attackDuration = 600;
+    attackHandler;
 
     constructor(health, game) {
         super({ width: 120, height: 120 });
@@ -49,11 +50,13 @@ export class Wizard extends Actor {
         this.pos = new Vector(960, 680);
         this.vel = new Vector(0, 0);
 
-        engine.input.keyboard.on('down', (evt) => {
+        this.attackHandler = (evt) => {
             if (evt.key === Keys.Space) {
                 this.attack();
             }
-        });
+        };
+
+        engine.input.keyboard.on('down', this.attackHandler);
     }
 
     onPostUpdate(engine) {
@@ -149,5 +152,9 @@ export class Wizard extends Actor {
     die() {
         this.kill();
         this.game.stopAll();
+    }
+
+    onPreKill(engine) {
+        engine.input.keyboard.off('down', this.attackHandler);
     }
 }

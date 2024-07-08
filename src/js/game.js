@@ -3,7 +3,7 @@
 // Fix bug: Unflipped death animations DONE
 // Fix bug: Player moving during attack DONE
 // Fix bug: Incorrect attack animation DONE
-// Fix bug: Incorrect Spell behaviour on restart
+// Fix bug: Incorrect Spell behaviour on restart DONE
 // Add score bonus on double kill
 // Add delay after screen switch
 // Custom Score Font
