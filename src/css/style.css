@@ -1,7 +1,13 @@
+@font-face {
+    font-family: "Fantasy-Font";
+    src: url('/public/font/Fantasy-font.woff') format('woff');
+}
+
 body {
     margin: 0;
     padding: 0;
     background-color: rgb(61, 61, 61);
     display: flex;
     justify-content: center;
+    font-family: "Fantasy-Font";
 }

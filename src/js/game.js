@@ -5,7 +5,8 @@
 // Fix bug: Incorrect attack animation DONE
 // Fix bug: Incorrect Spell behaviour on restart DONE
 // Add delay after screen switch DONE
-// Custom Score Font
+// Custom Score Font DONE
+// Fix bug: Incorrect font display on start
 
 import '../css/style.css';
 import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";
@@ -97,7 +98,7 @@ export class Game extends Engine {
         const background = new Background();
         const heart = new Health(3);
         this.wizard = new Wizard(heart, this);
-        this.wizard.canCastSpells = true; // Enable spell casting
+        this.wizard.canCastSpells = true;
         this.ui = new UI();
     
         this.add(background);
@@ -147,7 +148,7 @@ export class Game extends Engine {
     end() {
         this.gameEnded = true;
         this.wizard.canCastSpells = false;
-        this.allowInput = false; // Add a flag to control input
+        this.allowInput = false;
     
         Resources.GameOver.volume = 1.0;
         Resources.GameOver.loop = false;
@@ -162,9 +163,9 @@ export class Game extends Engine {
         }
     
         setTimeout(() => {
-            this.allowInput = true; // Re-enable input after the pause
+            this.allowInput = true;
             this.spaceKeyListener = (evt) => {
-                if (evt.key === Keys.Space && this.allowInput) { // Check the flag before restarting
+                if (evt.key === Keys.Space && this.allowInput) {
                     this.restart();
                 }
             };
@@ -174,7 +175,7 @@ export class Game extends Engine {
     }
     
     restart() {
-        if (!this.allowInput) return; // Prevent restart if input is not allowed
+        if (!this.allowInput) return;
     
         this.currentScene.actors.forEach(actor => {
             if (actor instanceof End) {

@@ -25,7 +25,7 @@ export class End extends Actor {
             font: new Font({
                 size: 75,
                 unit: FontUnit.Px,
-                family: "Arial"
+                family: "Fantasy-Font"
             })
         });
 
@@ -36,7 +36,7 @@ export class End extends Actor {
             font: new Font({
                 size: 75,
                 unit: FontUnit.Px,
-                family: "Arial"
+                family: "Fantasy-Font"
             })
         });
 
