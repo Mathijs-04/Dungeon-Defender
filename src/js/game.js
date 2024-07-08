@@ -4,10 +4,8 @@
 // Fix bug: Player moving during attack DONE
 // Fix bug: Incorrect attack animation DONE
 // Fix bug: Incorrect Spell behaviour on restart DONE
-// Add score bonus on double kill
-// Add delay after screen switch
+// Add delay after screen switch DONE
 // Custom Score Font
-// Make new build
 
 import '../css/style.css';
 import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";
@@ -95,23 +93,24 @@ export class Game extends Engine {
         });
         this.add(this.timer);
         this.timer.start();
-
+    
         const background = new Background();
         const heart = new Health(3);
         this.wizard = new Wizard(heart, this);
+        this.wizard.canCastSpells = true; // Enable spell casting
         this.ui = new UI();
-
+    
         this.add(background);
         this.add(this.wizard);
         this.add(heart);
         this.add(this.ui);
-
+    
         this.currentScene.actors.forEach(actor => {
             if (actor instanceof Start) {
                 actor.kill();
             }
         });
-
+    
         this.spawnEnded = false;
         this.elapsedTime = 0;
         // @ts-ignore
@@ -147,40 +146,47 @@ export class Game extends Engine {
 
     end() {
         this.gameEnded = true;
-
+        this.wizard.canCastSpells = false;
+        this.allowInput = false; // Add a flag to control input
+    
         Resources.GameOver.volume = 1.0;
         Resources.GameOver.loop = false;
         Resources.GameOver.play();
-
+    
         const finalScore = this.score;
         const end = new End(finalScore);
         this.add(end);
-
+    
         if (this.spaceKeyListener) {
             this.input.keyboard.off('down', this.spaceKeyListener);
         }
-
-        this.spaceKeyListener = (evt) => {
-            if (evt.key === Keys.Space) {
-                this.restart();
-            }
-        };
-
-        this.input.keyboard.on('down', this.spaceKeyListener);
+    
+        setTimeout(() => {
+            this.allowInput = true; // Re-enable input after the pause
+            this.spaceKeyListener = (evt) => {
+                if (evt.key === Keys.Space && this.allowInput) { // Check the flag before restarting
+                    this.restart();
+                }
+            };
+    
+            this.input.keyboard.on('down', this.spaceKeyListener);
+        }, 2000);
     }
-
+    
     restart() {
+        if (!this.allowInput) return; // Prevent restart if input is not allowed
+    
         this.currentScene.actors.forEach(actor => {
             if (actor instanceof End) {
                 actor.kill();
             }
         });
-
+    
         this.score = 0;
         this.elapsedTime = 0;
         // @ts-ignore
         this.elapsedTimeTimer.reset();
-
+    
         this.startGame();
     }
 }
