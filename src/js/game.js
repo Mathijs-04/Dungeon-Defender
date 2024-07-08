@@ -4,8 +4,10 @@
 // Fix bug: Player moving during attack DONE
 // Fix bug: Incorrect attack animation DONE
 // Fix bug: Incorrect Spell behaviour on restart
+// Add score bonus on double kill
 // Add delay after screen switch
 // Custom Score Font
+// Make new build
 
 import '../css/style.css';
 import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";
