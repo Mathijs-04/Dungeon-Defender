@@ -17,6 +17,8 @@ export class Game extends Engine {
     gameEnded = false;
     spawnEnded = false;
     spaceKeyListener;
+    timer;
+    elapsedTimeTimer;
 
     addPoints(points) {
         this.score += points;
@@ -83,27 +85,26 @@ export class Game extends Engine {
         });
         this.add(this.timer);
         this.timer.start();
-    
+
         const background = new Background();
         const heart = new Health(3);
         this.wizard = new Wizard(heart, this);
         this.wizard.canCastSpells = true;
         this.ui = new UI();
-    
+
         this.add(background);
         this.add(this.wizard);
         this.add(heart);
         this.add(this.ui);
-    
+
         this.currentScene.actors.forEach(actor => {
             if (actor instanceof Start) {
                 actor.kill();
             }
         });
-    
+
         this.spawnEnded = false;
         this.elapsedTime = 0;
-        // @ts-ignore
         this.elapsedTimeTimer.start();
     }
 
@@ -129,8 +130,13 @@ export class Game extends Engine {
         this.spawnEnded = true;
         Resources.Music.stop();
         this.currentScene.actors.forEach(actor => actor.kill());
-        // @ts-ignore
         this.elapsedTimeTimer.stop();
+
+        if (this.timer) {
+            this.timer.stop();
+            this.remove(this.timer);
+        }
+
         this.end();
     }
 
@@ -138,19 +144,19 @@ export class Game extends Engine {
         this.gameEnded = true;
         this.wizard.canCastSpells = false;
         this.allowInput = false;
-    
+
         Resources.GameOver.volume = 1.0;
         Resources.GameOver.loop = false;
         Resources.GameOver.play();
-    
+
         const finalScore = this.score;
         const end = new End(finalScore);
         this.add(end);
-    
+
         if (this.spaceKeyListener) {
             this.input.keyboard.off('down', this.spaceKeyListener);
         }
-    
+
         setTimeout(() => {
             this.allowInput = true;
             this.spaceKeyListener = (evt) => {
@@ -158,25 +164,29 @@ export class Game extends Engine {
                     this.restart();
                 }
             };
-    
+
             this.input.keyboard.on('down', this.spaceKeyListener);
         }, 2000);
     }
-    
+
     restart() {
         if (!this.allowInput) return;
-    
+
         this.currentScene.actors.forEach(actor => {
             if (actor instanceof End) {
                 actor.kill();
             }
         });
-    
+
         this.score = 0;
         this.elapsedTime = 0;
-        // @ts-ignore
         this.elapsedTimeTimer.reset();
-    
+
+        if (this.timer) {
+            this.timer.stop();
+            this.remove(this.timer);
+        }
+
         this.startGame();
     }
 }

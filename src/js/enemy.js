@@ -6,7 +6,7 @@ export class Enemy extends Actor {
     wizard;
 
     constructor(wizard) {
-        super({ width: 120, height: 120 });
+        super({ width: 100, height: 100 });
         this.wizard = wizard;
     }
 
@@ -66,7 +66,7 @@ export class Skeleton extends Enemy {
 
         const skeletonRunFrames = Animation.fromSpriteSheet(skeletonRunSheet, range(0, 3), 100);
         skeletonRunFrames.scale = new Vector(2.5, 2.5);
-        
+
         const skeletonDeathFrames = Animation.fromSpriteSheet(skeletonDeathSheet, range(0, 3), 120, AnimationStrategy.Freeze);
         skeletonDeathFrames.scale = new Vector(2.5, 2.5);
 

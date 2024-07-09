@@ -102,25 +102,25 @@ export class Wizard extends Actor {
 
         this.isAttacking = true;
         this.lastAttackTime = currentTime;
-        
+
         this.graphics.remove("attack");
-        
+
         const attackSheet = SpriteSheet.fromImageSource({
             image: Resources.AttackWizard,
             grid: { rows: 1, columns: 8, spriteWidth: 231, spriteHeight: 190 }
         });
-        
+
         const attackFrames = range(0, 7);
         const attack = Animation.fromSpriteSheet(attackSheet, attackFrames, 80);
         attack.scale = new Vector(2, 2);
-        
+
         this.graphics.add("attack", attack);
         this.graphics.use("attack");
-        
+
         if (this.graphics.current) {
             this.graphics.current.flipHorizontal = (this.lastDirection === "left");
         }
-        
+
         const xOffset = this.lastDirection === "right" ? 100 : -100;
 
         if (this.canCastSpells) {
@@ -136,7 +136,7 @@ export class Wizard extends Actor {
             const spell = new Spell(new Vector(this.lastDirection === "right" ? 1 : -1, 0), spellSpawnPosition);
             this.game.add(spell);
         }, 400);
-        
+
         setTimeout(() => {
             this.graphics.remove("attack");
             this.isAttacking = false;
