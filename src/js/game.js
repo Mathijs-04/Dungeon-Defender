@@ -7,7 +7,6 @@ import { Background } from './background.js';
 import { Goblin, Skeleton } from './enemy.js';
 import { UI } from './ui.js';
 import { Start } from './start.js';
-// @ts-ignore
 import { End } from './end.js';
 
 export class Game extends Engine {
