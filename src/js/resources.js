@@ -26,7 +26,7 @@ const Resources = {
     EnemyDeath: new Sound('audio/EnemyDeath.mp3'),
     GameOver: new Sound('audio/GameOver.mp3'),
 
-    // Font: new FontSource('Fantasy-Font', 'font/Fantasy-font.woff'),
+    FantasyFont: new FontSource('font/Fantasy-font.woff', 'Fantasy-Font'),
 };
 
 const ResourceLoader = new Loader();

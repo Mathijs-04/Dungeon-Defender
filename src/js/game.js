@@ -6,7 +6,7 @@
 // Fix bug: Incorrect Spell behaviour on restart DONE
 // Add delay after screen switch DONE
 // Custom Score Font DONE
-// Fix bug: Incorrect font display on start
+// Fix bug: Incorrect font display on start DONE
 
 import '../css/style.css';
 import { Actor, Engine, Vector, DisplayMode, Timer, Keys, Sound, Resource, SolverStrategy } from "excalibur";

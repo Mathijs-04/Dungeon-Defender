@@ -3,14 +3,11 @@ import { Label, FontUnit, Font, Vector, Actor, Color } from "excalibur";
 export class UI extends Actor {
     scoreLabel;
 
-    updateScore(score) {
-        this.scoreLabel.text = `SCORE: ${score}`;
-    }
-
-    onInitialize(engine) {
+    constructor() {
+        super();
         this.scoreLabel = new Label({
             text: "SCORE: 0",
-            pos: new Vector(840, 1000),
+            pos: new Vector(830, 1000),
             color: Color.White,
             font: new Font({
                 size: 60,
@@ -18,6 +15,14 @@ export class UI extends Actor {
                 family: "Fantasy-Font"
             })
         });
+    }
+
+    updateScore(score) {
+        this.scoreLabel.text = `SCORE: ${score}`;
+    }
+
+    onInitialize(engine) {
         engine.add(this.scoreLabel);
+        this.updateScore(0);
     }
 }
